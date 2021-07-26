@@ -12,23 +12,14 @@ defmodule Poker do
     suits = ["S", "C", "H", "D"]
 
     for suit <- suits, value <- values do
-      "#{value}:#{suit}"
-      # {
-      #   val: Poker.get_val(value)
-      # }
+      "#{value}#{suit}"
     end
   end
 
   def extract_number(val) do
-    # Integer.parse(val)
-    # case Integer.parse(val) do
-    #   {num, suit} -> [num, suit]
-    #   {:error, string} -> "Can't parse #{string}"
-    # end
     case Integer.parse(val) do
       {num, ""} -> {:ok, num}
       {num, rest} -> {num, rest}
-      # {_, rest} -> {:error, :unparsable}
       :error -> Poker.get_points(val)
     end
   end
@@ -70,8 +61,20 @@ defmodule Poker do
     false
   end
 
-  def high_card?(hand, board) do
-    false
+  def high_card?(list) do
+    Enum.max(list)
+    # return max num and remaining list
+    # {
+    #   max_val: Enum.max(list),
+    #   rest: List.pop_at()
+    # }
+  end
+
+  def find_max_five(hand, board) do
+    combined = List.flatten([hand, board])
+    max_list = [Poker.high_card?(combined)]
+    max_list = [Poker.high_card?()]
+    # recursively go through list getting max_val each time and rmv
   end
 
   def pair?(hand, board) do
